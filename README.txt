@@ -1,3 +1,6 @@
+Adjusted for the 'fresh' linux kernel.
+
+
 Linux* aQuantia AQtion Driver for the aQuantia Multi-Gigabit PCI Express Family
 of Ethernet Adapters
 =============================================================================
