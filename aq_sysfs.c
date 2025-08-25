@@ -59,10 +59,19 @@ static struct attribute *bar_attrs[] = {
 	NULL,
 };
 
+static const struct attribute_group bar_attr_group = {
+    .attrs = bar_attrs,
+};
+
+static const struct attribute_group *bar_attr_groups[] = {
+    &bar_attr_group,
+    NULL
+};
+
 static struct kobj_type bar_type = {
 	.sysfs_ops = &bar_ops,
 	.release = bar_release,
-	.default_attrs = bar_attrs,
+	.default_groups = bar_attr_groups,
 };
 
 static void aq_release_bars(struct aq_tsn_s *self)
@@ -205,10 +214,21 @@ static struct attribute *memreg_attrs[] = {
 	NULL,
 };
 
+static const struct attribute_group memreg_attr_group = {
+    .attrs = memreg_attrs,
+};
+
+/* STEP 2: Create a NULL-terminated array of pointers to the group(s) */
+static const struct attribute_group *memreg_attr_groups[] = {
+    &memreg_attr_group,
+    NULL
+};
+
+
 struct kobj_type memreg_type = {
 	.sysfs_ops = &memreg_ops,
 	.release = memreg_release,
-	.default_attrs = memreg_attrs,
+	.default_groups = memreg_attr_groups,
 };
 
 static int memreg_mmap(struct file *file, struct kobject *kobj, struct bin_attribute *attr,

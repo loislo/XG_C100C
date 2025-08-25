@@ -130,14 +130,10 @@ static int aq_pci_func_init(struct pci_dev *pdev)
 {
 	int err;
 
-	err = pci_set_dma_mask(pdev, DMA_BIT_MASK(64));
-	if (!err)
-		err = pci_set_consistent_dma_mask(pdev, DMA_BIT_MASK(64));
+        struct device *dev = &pdev->dev;
+	err = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
 	if (err) {
-		err = pci_set_dma_mask(pdev, DMA_BIT_MASK(32));
-		if (!err)
-			err = pci_set_consistent_dma_mask(pdev,
-							  DMA_BIT_MASK(32));
+		err = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
 	}
 	if (err != 0) {
 		err = -ENOSR;
